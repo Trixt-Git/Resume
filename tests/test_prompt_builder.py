@@ -13,6 +13,12 @@ def test_build_system_prompt_contains_rule5_anchor():
     assert "I can't do that — I only answer from" in prompt
 
 
+def test_build_system_prompt_contains_rule8_anchor():
+    facts = load_facts()
+    prompt = build_system_prompt(facts)
+    assert "That's not accurate — I haven't done that" in prompt
+
+
 def test_build_system_prompt_contains_name():
     facts = load_facts()
     prompt = build_system_prompt(facts)
