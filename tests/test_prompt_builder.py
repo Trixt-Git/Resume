@@ -1,0 +1,25 @@
+from prompt_builder import load_facts, build_system_prompt
+
+
+def test_build_system_prompt_contains_fallback_sentence():
+    facts = load_facts()
+    prompt = build_system_prompt(facts)
+    assert "I haven't worked with that, so I won't claim it." in prompt
+
+
+def test_build_system_prompt_contains_name():
+    facts = load_facts()
+    prompt = build_system_prompt(facts)
+    assert facts["identity"]["name"] in prompt
+
+
+def test_build_system_prompt_contains_skills():
+    facts = load_facts()
+    prompt = build_system_prompt(facts)
+    assert "skills" in prompt
+
+
+def test_build_system_prompt_has_no_placeholder():
+    facts = load_facts()
+    prompt = build_system_prompt(facts)
+    assert "{FACTS_JSON}" not in prompt
