@@ -1,0 +1,99 @@
+{
+  "identity": {
+    "name": "Wil",
+    "headline": "Prepress operator at RRD, self-taught in Python and SQL, building working analytics tools while I finish an MS in IT Management and aim for a systems analyst role.",
+    "location": "Raleigh, NC",
+    "links": { "github": "", "linkedin": "" }
+  },
+  "current_role": {
+    "employer": "RRD (R.R. Donnelley)",
+    "title": "Prepress Operator",
+    "since": "July 2025",
+    "responsibilities": [
+      "I handle prepress work for the print floor, getting jobs ready to run.",
+      "On my own initiative I started building analytics tools around the plant's operations. My manager and the company president both got behind that work and wrote recommendation letters for my graduate program."
+    ]
+  },
+  "education": [
+    {
+      "institution": "UNC Greensboro, Bryan School",
+      "credential": "MS, Information Technology Management (Analytics)",
+      "status": "In progress, expected May 2028",
+      "notes": ["Started June 2026."]
+    },
+    {
+      "institution": "East Carolina University",
+      "credential": "BS, Sports Business",
+      "status": "Completed",
+      "notes": []
+    }
+  ],
+  "career_target": "Fidelity Investments LEAP Program, Systems Analyst track",
+  "skills": {
+    "confirmed": ["Python", "SQL", "Tableau", "Streamlit", "Git/GitHub"],
+    "not_claimed": ["React", "FastAPI", "Java", "AWS", "machine learning in production"]
+  },
+  "projects": [
+    {
+      "name": "FloorPlan",
+      "one_liner": "A Python and Streamlit tool for scheduling the RRD press floor, built from operator interviews.",
+      "stack": ["Python", "Streamlit"],
+      "details": [
+        "It's built as a clean Python package, with the data models, file parsing, configuration, and scheduling math each in their own module.",
+        "I gathered the requirements straight from the operators who run the floor, so it solves a problem I watched them deal with in person.",
+        "Like my other projects, I built it with AI assistance and then worked back through the code to understand how each part functions."
+      ],
+      "outcomes": []
+    },
+    {
+      "name": "Ask Wil",
+      "one_liner": "This chatbot; it answers only from my verified background and refuses everything else.",
+      "stack": ["Python", "Streamlit", "Anthropic API", "pytest"],
+      "details": [
+        "I built it so it can only answer from a fixed set of verified facts about me, and it refuses anything outside that set instead of guessing.",
+        "There is an automated test that throws adversarial recruiter questions at it to confirm it will not overclaim before it goes live.",
+        "I built it with heavy AI assistance and then went back through it to understand how each part works. That is on purpose. I want to use every tool available to me to see what is possible, then take it apart so I actually understand it."
+      ],
+      "outcomes": []
+    }
+  ],
+  "work_history": [
+    {
+      "employer": "Fidelity Investments",
+      "title": "Financial Customer Associate",
+      "dates": "September 2015 to September 2016",
+      "highlights": [
+        "Provided financial customer service to Fidelity clients.",
+        "Left voluntarily and on good terms, and I remain eligible for rehire."
+      ]
+    },
+    {
+      "employer": "Reynolds & Reynolds",
+      "title": "Implementation Specialist",
+      "dates": "January 2017 to February 2020",
+      "highlights": [
+        "Spent just over three years implementing software systems for clients."
+      ]
+    },
+    {
+      "employer": "Mythic Brewing",
+      "title": "General Manager",
+      "dates": "September 2020 to October 2023",
+      "highlights": [
+        "Ran a small five-person operation with full profit and loss responsibility."
+      ]
+    },
+    {
+      "employer": "Raleigh Beer Garden",
+      "title": "Bar Manager",
+      "dates": "December 2023 to December 2024",
+      "highlights": [
+        "Managed staffing and daily operations for a venue that held over a hundred guests."
+      ]
+    }
+  ],
+  "sensitive_topics": {
+    "salary_expectations": "I'd rather discuss compensation once there's mutual interest in a specific role.",
+    "why_left_fidelity": "I was early in my career and took the role without really knowing what I wanted from it. It was mostly inbound phone work, and I figured out fairly quickly that it wasn't the right fit for me at the time. I left on good terms and I'm still eligible for rehire, and now that I know the kind of work I want to do, Fidelity is exactly where I'm aiming."
+  }
+}
