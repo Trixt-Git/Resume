@@ -181,6 +181,41 @@ input:focus-visible {
 }
 
 
+/* Centered landing hero (empty-state only) */
+.st-key-wilos_hero {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 55vh !important;
+  text-align: center !important;
+}
+
+.st-key-wilos_hero [data-testid="stMarkdownContainer"],
+.st-key-wilos_hero [data-testid="stMarkdownContainer"] p {
+  text-align: center !important;
+}
+
+.st-key-wilos_hero [data-testid="stHorizontalBlock"] {
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  flex-wrap: nowrap !important;
+  width: auto !important;
+}
+
+.st-key-wilos_hero [data-testid="stColumn"] {
+  width: fit-content !important;
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+}
+
+.st-key-wilos_hero .stButton button {
+  width: auto !important;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+
+
 /* Mobile */
 @media (max-width: 640px) {
 

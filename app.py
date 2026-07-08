@@ -8,9 +8,6 @@ from style import STYLE
 st.set_page_config(page_title="WilOS", page_icon="💬")
 st.markdown(STYLE, unsafe_allow_html=True)
 
-st.title("WilOS")
-st.markdown("Ready when you are.")
-
 api_key = st.secrets.get("ANTHROPIC_API_KEY", "")
 if not api_key:
     st.error("API key not configured — see README.")
@@ -20,6 +17,11 @@ if "system_prompt" not in st.session_state:
     st.session_state["system_prompt"] = build_system_prompt(load_facts())
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
+
+is_empty = not st.session_state["messages"]
+
+if not is_empty:
+    st.title("WilOS")
 
 REFUSAL_MARKERS = [
     "haven't worked with", "haven't used", "don't claim",
@@ -65,16 +67,19 @@ for message in st.session_state["messages"]:
             st.write(message["content"])
 
 user_input = st.chat_input("Ask about Wil's background, skills, or projects")
-if not st.session_state["messages"]:
-    c1, c2, c3, c4 = st.columns(4)
-    if c1.button("Experience"):
-        user_input = "Walk me through your work experience."
-    if c2.button("Projects"):
-        user_input = "Tell me about your projects."
-    if c3.button("Systems"):
-        user_input = "How do you approach building systems and tools?"
-    if c4.button("Role Fit"):
-        user_input = "Why are you a fit for a systems analyst role?"
+if is_empty:
+    with st.container(key="wilos_hero"):
+        st.markdown('<div class="wilos-title">WilOS</div>', unsafe_allow_html=True)
+        st.markdown('<div class="wilos-subtitle">Ready when you are.</div>', unsafe_allow_html=True)
+        c1, c2, c3, c4 = st.columns(4)
+        if c1.button("Experience"):
+            user_input = "Walk me through your work experience."
+        if c2.button("Projects"):
+            user_input = "Tell me about your projects."
+        if c3.button("Systems"):
+            user_input = "How do you approach building systems and tools?"
+        if c4.button("Role Fit"):
+            user_input = "Why are you a fit for a systems analyst role?"
 
 if user_input:
     if len(st.session_state["messages"]) >= 60:
