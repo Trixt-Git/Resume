@@ -128,18 +128,18 @@ st.header("System data flow")
 st.markdown("How one message moves through the system, start to finish:")
 st.markdown(
     """
-<div class="askwil-flow">
-  <div class="askwil-flow-step">User submits a message (typed, or a starter prompt)</div>
-  <div class="askwil-flow-arrow">↓</div>
-  <div class="askwil-flow-step">Guardrail check — session cap (30 exchanges) and 1,000-character input cap, before any API call</div>
-  <div class="askwil-flow-arrow">↓</div>
-  <div class="askwil-flow-step">Facts grounding — the full verified-facts file was already compiled into the system prompt at startup; nothing is retrieved per-message</div>
-  <div class="askwil-flow-arrow">↓</div>
-  <div class="askwil-flow-step">Model call — system prompt (marked cacheable) + last 12 messages sent to the model, streamed back token by token</div>
-  <div class="askwil-flow-arrow">↓</div>
-  <div class="askwil-flow-step">Citation parse — a trailing machine-readable source tag is stripped from the reply before display; a failed or missing tag just means no citation line, never an error</div>
-  <div class="askwil-flow-arrow">↓</div>
-  <div class="askwil-flow-step">Rendered response — sourced answers and refusals are visually distinguishable at a glance</div>
+<div class="wilos-flow">
+  <div class="wilos-flow-step">User submits a message (typed, or a starter prompt)</div>
+  <div class="wilos-flow-arrow">↓</div>
+  <div class="wilos-flow-step">Guardrail check — session cap (30 exchanges) and 1,000-character input cap, before any API call</div>
+  <div class="wilos-flow-arrow">↓</div>
+  <div class="wilos-flow-step">Facts grounding — the full verified-facts file was already compiled into the system prompt at startup; nothing is retrieved per-message</div>
+  <div class="wilos-flow-arrow">↓</div>
+  <div class="wilos-flow-step">Model call — system prompt (marked cacheable) + last 12 messages sent to the model, streamed back token by token</div>
+  <div class="wilos-flow-arrow">↓</div>
+  <div class="wilos-flow-step">Citation parse — a trailing machine-readable source tag is stripped from the reply before display; a failed or missing tag just means no citation line, never an error</div>
+  <div class="wilos-flow-arrow">↓</div>
+  <div class="wilos-flow-step">Rendered response — sourced answers and refusals are visually distinguishable at a glance</div>
 </div>
 """,
     unsafe_allow_html=True,
