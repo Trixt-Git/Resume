@@ -36,14 +36,16 @@
   "projects": [
     {
       "name": "FloorPlan",
-      "one_liner": "A Python and Streamlit tool for scheduling the RRD press floor, built from operator interviews.",
-      "stack": ["Python", "Streamlit"],
+      "one_liner": "A production decision-support app (Python/Streamlit) that analyzes press room performance data to pinpoint the largest sources of lost capacity and model which operational changes close the gap to output targets, adopted by plant leadership.",
+      "stack": ["Python", "pandas", "Streamlit"],
       "details": [
-        "It's built as a clean Python package, with the data models, file parsing, configuration, and scheduling math each in their own module.",
-        "I gathered the requirements straight from the operators who run the floor, so it solves a problem I watched them deal with in person.",
+        "Built for a 6-press commercial printing operation; it ingests monthly machine-level production reports and answers two questions for floor management: where is capacity being lost, and what specific operational changes would close the gap to a production target.",
+        "Analysis of five months of real production data revealed the fleet was running at 28.8% overall equipment effectiveness (~5.3M sheets/month against a ~17.4M ceiling), with equipment changeover time as the single largest loss at ~777 hours/month.",
         "Like my other projects, I built it with AI assistance and then worked back through the code to understand how each part functions."
       ],
-      "outcomes": []
+      "outcomes": [
+        "Presented to the plant president and approved for floor use; deployed as a live web application."
+      ]
     },
     {
       "name": "Ask Wil",
