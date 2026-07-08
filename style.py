@@ -29,16 +29,16 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* Layout */
 .block-container {
-  max-width: 760px;
-  padding-top: 3rem;
-  padding-bottom: 4rem;
+  max-width: 700px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 
 /* WilOS branding */
 .wilos-title {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 3.4rem;
+  font-size: 2.6rem;
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1;
@@ -187,7 +187,7 @@ input:focus-visible {
   flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
-  min-height: 55vh !important;
+  min-height: 35vh !important;
   text-align: center !important;
 }
 
