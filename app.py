@@ -9,7 +9,7 @@ st.set_page_config(page_title="WilOS", page_icon="💬")
 st.markdown(STYLE, unsafe_allow_html=True)
 
 st.title("WilOS")
-st.markdown("Explore the experience behind the resume.")
+st.markdown("Ready when you are.")
 
 api_key = st.secrets.get("ANTHROPIC_API_KEY", "")
 if not api_key:
