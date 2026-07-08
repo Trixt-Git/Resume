@@ -2,12 +2,12 @@ import streamlit as st
 
 from style import STYLE
 
-st.set_page_config(page_title="How I Built This — Ask Wil", page_icon="💬")
+st.set_page_config(page_title="How I Built This — WilOS", page_icon="💬")
 st.markdown(STYLE, unsafe_allow_html=True)
 
 st.title("How I Built This")
 st.markdown(
-    "A systems-analysis case study of Ask Wil's architecture, spec discipline, "
+    "A systems-analysis case study of WilOS's architecture, spec discipline, "
     "and validation — written for a technical, analyst-minded reader rather "
     "than as a dev-showcase."
 )

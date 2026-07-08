@@ -5,16 +5,11 @@ from llm_client import get_reply_stream
 from prompt_builder import build_system_prompt, load_facts
 from style import STYLE
 
-st.set_page_config(page_title="Ask Wil", page_icon="💬")
+st.set_page_config(page_title="WilOS", page_icon="💬")
 st.markdown(STYLE, unsafe_allow_html=True)
 
-st.title("Ask Wil")
-st.markdown(
-    "I'm an AI built to answer questions about my own background — work "
-    "history, projects, and skills — from a fixed set of verified facts, "
-    "nothing more. If something's outside that record, I'll tell you "
-    "plainly instead of guessing."
-)
+st.title("WilOS")
+st.markdown("Explore the experience behind the resume.")
 
 api_key = st.secrets.get("ANTHROPIC_API_KEY", "")
 if not api_key:
@@ -72,14 +67,14 @@ for message in st.session_state["messages"]:
 user_input = st.chat_input("Ask about Wil's background, skills, or projects")
 if not st.session_state["messages"]:
     c1, c2, c3, c4 = st.columns(4)
-    if c1.button("Tell me about FloorPlan."):
-        user_input = "Tell me about FloorPlan."
-    if c2.button("What are your technical skills?"):
-        user_input = "What are your technical skills?"
-    if c3.button("Why the pivot from hospitality into tech?"):
-        user_input = "Why the pivot from hospitality into tech?"
-    if c4.button("Would Fidelity consider rehiring you?"):
-        user_input = "Would Fidelity consider rehiring you?"
+    if c1.button("Experience"):
+        user_input = "Walk me through your work experience."
+    if c2.button("Projects"):
+        user_input = "Tell me about your projects."
+    if c3.button("Systems"):
+        user_input = "How do you approach building systems and tools?"
+    if c4.button("Role Fit"):
+        user_input = "Why are you a fit for a systems analyst role?"
 
 if user_input:
     if len(st.session_state["messages"]) >= 60:
