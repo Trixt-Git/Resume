@@ -7,6 +7,12 @@ def test_build_system_prompt_contains_fallback_sentence():
     assert "I haven't worked with that, so I won't claim it." in prompt
 
 
+def test_build_system_prompt_contains_rule5_anchor():
+    facts = load_facts()
+    prompt = build_system_prompt(facts)
+    assert "I can't do that — I only answer from" in prompt
+
+
 def test_build_system_prompt_contains_name():
     facts = load_facts()
     prompt = build_system_prompt(facts)
