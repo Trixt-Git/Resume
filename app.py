@@ -72,14 +72,14 @@ for message in st.session_state["messages"]:
 user_input = st.chat_input("Ask about Wil's background, skills, or projects")
 if not st.session_state["messages"]:
     c1, c2, c3, c4 = st.columns(4)
-    if c1.button("Would Fidelity consider rehiring you?"):
-        user_input = "Would Fidelity consider rehiring you?"
-    if c2.button("Tell me about FloorPlan."):
+    if c1.button("Tell me about FloorPlan."):
         user_input = "Tell me about FloorPlan."
+    if c2.button("What are your technical skills?"):
+        user_input = "What are your technical skills?"
     if c3.button("Why the pivot from hospitality into tech?"):
         user_input = "Why the pivot from hospitality into tech?"
-    if c4.button("What are your technical skills?"):
-        user_input = "What are your technical skills?"
+    if c4.button("Would Fidelity consider rehiring you?"):
+        user_input = "Would Fidelity consider rehiring you?"
 
 if user_input:
     if len(st.session_state["messages"]) >= 60:
