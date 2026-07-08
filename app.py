@@ -1,5 +1,6 @@
 import streamlit as st
 
+from citations import CitationStreamFilter
 from llm_client import get_reply_stream
 from prompt_builder import build_system_prompt, load_facts
 
@@ -84,9 +85,11 @@ input:focus-visible {
 st.markdown(STYLE, unsafe_allow_html=True)
 
 st.title("Ask Wil")
-st.caption(
-    "An AI assistant answering from Wil's verified background — one of his "
-    "projects. It will tell you when it doesn't know."
+st.markdown(
+    "I'm an AI built to answer questions about my own background — work "
+    "history, projects, and skills — from a fixed set of verified facts, "
+    "nothing more. If something's outside that record, I'll tell you "
+    "plainly instead of guessing."
 )
 
 api_key = st.secrets.get("ANTHROPIC_API_KEY", "")
@@ -111,17 +114,25 @@ def is_refusal(text: str) -> bool:
     return any(marker in lowered for marker in REFUSAL_MARKERS)
 
 
-def render_marker(text: str) -> None:
+def render_marker(text: str, keys) -> None:
     if is_refusal(text):
         st.markdown(
             '<div class="askwil-marker askwil-marker--refusal">outside verified facts</div>',
             unsafe_allow_html=True,
         )
-    else:
+    elif keys:
+        label = "Source: " + ", ".join(k.replace("_", " ") for k in keys)
+        st.markdown(
+            f'<div class="askwil-marker askwil-marker--source">{label}</div>',
+            unsafe_allow_html=True,
+        )
+    elif keys == []:
         st.markdown(
             '<div class="askwil-marker askwil-marker--source">from verified facts</div>',
             unsafe_allow_html=True,
         )
+    # keys is None (citation parsing failed): no citation line, per spec —
+    # the answer still displays normally, it just has no source caption.
 
 
 for message in st.session_state["messages"]:
@@ -129,20 +140,22 @@ for message in st.session_state["messages"]:
         with st.chat_message("assistant", avatar="💬"):
             st.markdown('<div class="askwil-label">Wil</div>', unsafe_allow_html=True)
             st.write(message["content"])
-            render_marker(message["content"])
+            render_marker(message["content"], message.get("sources"))
     else:
         with st.chat_message("user"):
             st.write(message["content"])
 
 user_input = st.chat_input("Ask about Wil's background, skills, or projects")
 if not st.session_state["messages"]:
-    c1, c2, c3 = st.columns(3)
-    if c1.button("What's FloorPlan?"):
-        user_input = "What's FloorPlan?"
-    if c2.button("Why Fidelity's LEAP Program?"):
-        user_input = "Why Fidelity's LEAP Program?"
-    if c3.button("Walk me through your Python experience."):
-        user_input = "Walk me through your Python experience."
+    c1, c2, c3, c4 = st.columns(4)
+    if c1.button("Would Fidelity consider rehiring you?"):
+        user_input = "Would Fidelity consider rehiring you?"
+    if c2.button("Tell me about FloorPlan."):
+        user_input = "Tell me about FloorPlan."
+    if c3.button("Why the pivot from hospitality into tech?"):
+        user_input = "Why the pivot from hospitality into tech?"
+    if c4.button("What are your technical skills?"):
+        user_input = "What are your technical skills?"
 
 if user_input:
     if len(st.session_state["messages"]) >= 60:
@@ -158,14 +171,20 @@ if user_input:
         with st.chat_message("user"):
             st.write(user_input)
 
-        last_12_messages = st.session_state["messages"][-12:]
+        last_12_messages = [
+            {"role": m["role"], "content": m["content"]}
+            for m in st.session_state["messages"][-12:]
+        ]
         if last_12_messages and last_12_messages[0]["role"] != "user":
             last_12_messages = last_12_messages[1:]
 
         with st.chat_message("assistant", avatar="💬"):
             st.markdown('<div class="askwil-label">Wil</div>', unsafe_allow_html=True)
-            reply = st.write_stream(
+            citation_filter = CitationStreamFilter(
                 get_reply_stream(api_key, st.session_state["system_prompt"], last_12_messages)
             )
-            render_marker(reply)
-        st.session_state["messages"].append({"role": "assistant", "content": reply})
+            display_text = st.write_stream(citation_filter)
+            render_marker(display_text, citation_filter.keys)
+        st.session_state["messages"].append(
+            {"role": "assistant", "content": display_text, "sources": citation_filter.keys}
+        )
