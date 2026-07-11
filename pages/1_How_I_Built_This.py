@@ -151,20 +151,25 @@ st.markdown(
 The system prompt is sent as a cacheable content block, with the intent
 that a 5-minute cache lets repeat calls in the same session read the
 (unchanging) system prompt at a steep discount instead of paying full
-price every turn. The documented estimate — corrected once already after
-an earlier ~10x-too-low guess was checked against real pricing — is
-roughly $0.03–$0.05 for a typical short conversation, and about $0.06 for
-a fully maxed 30-question session.
+price every turn.
 
-**An update, found while extending this build, not before:** a live check
-of the model's own usage statistics during this round of changes showed
-the cache reporting zero cached tokens on back-to-back calls with an
-unchanged system prompt — meaning caching does not appear to be engaging
-at the system prompt's current size. The documented cost estimate above
-reflects the *designed* behavior; it hasn't yet been reconciled with that
-finding. Surfacing that gap here is more useful than quietly deleting the
-claim, since catching a validated assumption that turned out to be wrong
-is the same discipline the eval failures above were handled with.
+**That intent doesn't currently hold, and the fix was to correct the
+claim rather than force it to become true.** A live check of the
+model's own usage statistics found caching only actually engages above
+roughly 4,096–4,600 tokens for this model — found by testing
+progressively larger synthetic prompts against the real API and
+watching for `cache_creation_input_tokens`/`cache_read_input_tokens`
+to turn nonzero. The real system prompt measures 2,263 tokens, well
+under that floor, so every call pays full input price. Reaching the
+real threshold would mean roughly doubling the prompt with content
+the facts file doesn't have yet — padding it with filler just to make
+a cost claim technically true would be the same category of problem
+this whole project exists to avoid, just aimed at documentation
+instead of a chat reply. So the resolution is the same discipline used
+for the eval failures earlier: report the real number, not the
+convenient one. Cost is still low regardless — the $5/month console
+spend cap is the actual ceiling, independent of whether caching is
+active.
 
 On model tiering: this specification was written once, up front, with
 every architectural decision already made and justified, by a

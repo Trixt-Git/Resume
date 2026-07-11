@@ -153,7 +153,7 @@ PASS  work_pos
 - **Single LLM seam** — `llm_client.py` is the only file that imports `anthropic`; every other module talks to it through one function, so testing, mocking, and any future provider swap touch exactly one file.
 - **Guardrails** — a 30-exchange session cap, a 1,000-character input cap, an injection-defense rule built into the system prompt, and a $5/month spend cap set in the Anthropic console before any public deploy.
 - **The eval is a locked table** — 20 adversarial cases a builder is forbidden to weaken; a failure means the facts, the prompt, or the model needs fixing, never the test.
-- Prompt caching makes the economics work: the ~4k-token system prompt is cached at 1.25x on the first call, then 0.1x on subsequent calls (90% off). A typical recruiter conversation costs $0.03–$0.05; even a maxed 30-question session runs ~$0.06 total.
+- **Prompt caching is wired up but not yet active** — the system prompt is marked cacheable (`cache_control: {"type": "ephemeral"}`), but empirical testing (real API calls, checking `usage.cache_creation_input_tokens`/`cache_read_input_tokens`) found the real minimum cacheable length for this model is roughly 4,096–4,600 tokens; the actual system prompt measures 2,263 tokens, well under that floor, so every call pays full input price rather than the 90%-off cache-read rate. This was corrected after an earlier version of this README stated a caching discount that was never actually engaging — reaching the real threshold would mean roughly doubling the prompt with content `facts.json` doesn't have yet, so the fix here is the honest number, not a padded prompt. Cost is still low regardless: the $5/month console spend cap is the real ceiling, independent of caching.
 
 ## Honesty policy
 
