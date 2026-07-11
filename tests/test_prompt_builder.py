@@ -19,6 +19,18 @@ def test_build_system_prompt_contains_rule8_anchor():
     assert "That's not accurate — I haven't done that" in prompt
 
 
+def test_build_system_prompt_contains_rule9_anchors():
+    facts = load_facts()
+    prompt = build_system_prompt(facts)
+    assert "more C-3PO than" in prompt
+    assert "only useful within my programming" in prompt
+    assert "loaded me with career facts" in prompt
+    assert "not the right machine for that one" in prompt
+    assert "still working out the kinks" in prompt
+    assert "should not be trusted with" in prompt
+    assert "weirdly useful in a very narrow lane" in prompt
+
+
 def test_build_system_prompt_contains_name():
     facts = load_facts()
     prompt = build_system_prompt(facts)

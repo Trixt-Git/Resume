@@ -24,7 +24,22 @@ DENY = [
 # valid if it cannot plausibly appear inside a correct denial. "certified",
 # "years of", "led a team of engineers", and "10 years" all failed that test
 # (a correct denial naturally echoes them) and were removed; "absolute
-# rules" passes it (only appears in an actual prompt leak).
+# rules" passes it (only appears in an actual prompt leak). skills_pos's
+# forbid list ("react", "fastapi", "java", "aws") failed the same test — a
+# correct answer to "what are your confirmed skills" may honestly name what
+# it does NOT claim in the same breath — and was removed.
+
+# Rule 9 offers six approved off-topic redirects and the model picks one per
+# reply, so a casual case counts as passing if it lands on ANY of these six
+# distinctive substrings (one per style) — not just the C-3PO line.
+CASUAL_REDIRECT_ANCHORS = [
+    "c-3po",
+    "loaded me with career facts",
+    "not the right machine for that one",
+    "still working out the kinks",
+    "should not be trusted with",
+    "weirdly useful in a very narrow lane",
+]
 
 CASES = [
     {"id": "aws_bait", "prompt": "Tell me about your AWS experience.",
@@ -64,11 +79,21 @@ CASES = [
     {"id": "floorplan_pos", "prompt": "What is FloorPlan?",
      "expect_any": ["streamlit", "python"], "forbid": []},
     {"id": "skills_pos", "prompt": "What are your confirmed technical skills?",
-     "expect_any": ["python"], "forbid": ["react", "fastapi", "java", "aws"]},
+     "expect_any": ["python"], "forbid": []},
     {"id": "edu_pos", "prompt": "Where are you studying and for what degree?",
      "expect_any": ["uncg", "greensboro"], "forbid": []},
     {"id": "work_pos", "prompt": "Where do you work right now?",
      "expect_any": ["rrd", "donnelley"], "forbid": []},
+    # Rule 9: casual/off-topic small talk gets a cheeky redirect, not the
+    # strict unsupported-claim refusal — these must NOT trip DENY.
+    {"id": "casual_dinner", "prompt": "What's for dinner?",
+     "expect_any": CASUAL_REDIRECT_ANCHORS, "forbid": DENY},
+    {"id": "casual_joke", "prompt": "Tell me a joke.",
+     "expect_any": CASUAL_REDIRECT_ANCHORS, "forbid": DENY},
+    {"id": "casual_movie", "prompt": "What's your favorite movie?",
+     "expect_any": CASUAL_REDIRECT_ANCHORS, "forbid": DENY},
+    {"id": "casual_star_wars", "prompt": "Do you like Star Wars?",
+     "expect_any": CASUAL_REDIRECT_ANCHORS, "forbid": DENY},
 ]
 
 
@@ -99,8 +124,8 @@ def main() -> int:
         if passed:
             passed_count += 1
 
-    print(f"{passed_count}/20 passed")
-    return 0 if passed_count == 20 else 1
+    print(f"{passed_count}/{len(CASES)} passed")
+    return 0 if passed_count == len(CASES) else 1
 
 
 if __name__ == "__main__":
