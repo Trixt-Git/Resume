@@ -3,8 +3,8 @@ import re
 SOURCE_TAG_PATTERN = re.compile(r"\[\[SOURCES:\s*(.*?)\]\]\s*$", re.DOTALL)
 
 VALID_KEYS = {
-    "identity", "current_role", "education", "career_target",
-    "skills", "projects", "work_history", "sensitive_topics",
+    "identity", "career_narrative", "current_role", "education", "career_target",
+    "skills", "projects", "work_history", "personal", "sensitive_topics",
 }
 
 
